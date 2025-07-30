@@ -1,10 +1,12 @@
 import type {Metadata} from 'next';
+import {Toaster} from '@/components/ui/toaster';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster";
+import { cn } from '@/lib/utils';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
-  title: 'Artful Assistant',
-  description: 'Generate beautiful color palettes with AI',
+  title: 'Admin Dashboard',
+  description: 'Dashboard for the Bin Reminder service.',
 };
 
 export default function RootLayout({
@@ -13,14 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
-      <body className="font-body antialiased">
-        {children}
+      <body className={cn('font-sans antialiased h-full bg-background text-foreground')}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
