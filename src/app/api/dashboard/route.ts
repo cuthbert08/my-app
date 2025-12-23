@@ -4,9 +4,14 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get('x-access-token');
+
+    if (!token) {
+      return new NextResponse('Unauthorized: Missing access token', { status: 401 });
+    }
+
     const response = await axios.get('https://bin-reminder-app.vercel.app/api/dashboard', {
         headers: {
-            'x-access-token': token || ''
+            'x-access-token': token
         }
     });
     return NextResponse.json(response.data);
