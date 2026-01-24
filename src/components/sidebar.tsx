@@ -29,7 +29,7 @@ export function Sidebar() {
         <div className="h-16 flex items-center px-6 border-b">
           <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
             <Shield className="w-6 h-6 text-primary" />
-            <span>Admin Dashboard</span>
+            <span>DutyFlow</span>
           </Link>
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2">

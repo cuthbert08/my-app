@@ -45,7 +45,7 @@ export function LoginForm() {
       <CardHeader className="text-center">
         <div className="flex justify-center items-center gap-2 mb-4">
             <Shield className="w-8 h-8 text-primary" />
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            <h1 className="text-2xl font-bold">DutyFlow</h1>
         </div>
         <CardTitle>Admin Login</CardTitle>
         <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
