@@ -28,8 +28,8 @@ export default function RootLayout({
       <body className={cn('font-sans antialiased h-full bg-background text-foreground')} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <AuthProvider>
