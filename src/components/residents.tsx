@@ -200,7 +200,7 @@ export function Residents() {
             <TableRow>
               <TableHead>Flat</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>WhatsApp</TableHead>
+              <TableHead>Number</TableHead>
               <TableHead>Email</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -335,7 +335,7 @@ export function Residents() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm">
-                  <b>WhatsApp:</b> {resident.contact.whatsapp || 'N/A'}
+                  <b>Number:</b> {resident.contact.whatsapp || 'N/A'}
                 </p>
                 <p className="text-sm">
                   <b>Email:</b> {resident.contact.email || 'N/A'}
@@ -368,7 +368,7 @@ export function Residents() {
                     <Input id="flat_number" value={editingResident?.flat_number || ''} onChange={(e) => handleDialogInputChange('flat_number', e.target.value)} className="col-span-3" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="whatsapp" className="text-right">WhatsApp</Label>
+                    <Label htmlFor="whatsapp" className="text-right">Number</Label>
                     <Input id="whatsapp" value={editingResident?.contact?.whatsapp || ''} onChange={(e) => handleDialogContactChange('whatsapp', e.target.value)} className="col-span-3" />
                 </div>
                  <div className="grid grid-cols-4 items-center gap-4">
