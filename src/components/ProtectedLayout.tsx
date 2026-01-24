@@ -2,12 +2,10 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Sidebar } from './sidebar';
 import { Skeleton } from './ui/skeleton';
-import { Button } from './ui/button';
-import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { BottomNavbar } from './bottom-navbar';
 
 export default function ProtectedLayout({
   children,
@@ -16,8 +14,6 @@ export default function ProtectedLayout({
 }) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -39,45 +35,20 @@ export default function ProtectedLayout({
 
   return (
     <div className="flex min-h-screen w-full">
-        {/* Overlay for mobile */}
-        {isSidebarOpen && (
-            <div
-                className="fixed inset-0 z-20 bg-black/60 lg:hidden"
-                onClick={() => setIsSidebarOpen(false)}
-            ></div>
-        )}
-        
-        {/* Sidebar */}
-        <div
-            className={cn(
-                'fixed inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0',
-                {
-                    'translate-x-0': isSidebarOpen,
-                    '-translate-x-full': !isSidebarOpen,
-                }
-            )}
-        >
-            <Sidebar />
-        </div>
-        
-        <div className="flex flex-1 flex-col">
-             {/* Mobile Header */}
-            <header className="sticky top-0 flex h-16 items-center justify-between border-b bg-card px-4 lg:hidden">
-                 <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className="lg:hidden"
-                >
-                    {isSidebarOpen ? <X /> : <Menu />}
-                    <span className="sr-only">Toggle menu</span>
-                </Button>
-            </header>
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block lg:w-64 lg:border-r lg:sticky lg:top-0 lg:h-screen">
+          <Sidebar />
+      </div>
 
-            <main className="flex-1 p-4 sm:p-6 lg:p-8">
-              {children}
-            </main>
-        </div>
+      <div className="flex-1 flex flex-col w-full">
+        {/* Add padding-bottom for the bottom nav on mobile */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8">
+          {children}
+        </main>
+      </div>
+
+      {/* Mobile Bottom Navbar */}
+      <BottomNavbar />
     </div>
   );
 }

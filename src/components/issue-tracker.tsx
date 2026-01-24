@@ -153,7 +153,7 @@ export function IssueTracker() {
   const PageContent = () => (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Issue Tracker</h1>
+        <h1 className="text-3xl font-bold">Issues</h1>
         {canDelete && selectedIssues.size > 0 && (
           <AlertDialog>
               <AlertDialogTrigger asChild>
