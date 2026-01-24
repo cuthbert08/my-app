@@ -10,7 +10,7 @@ export function BottomNavbar() {
   const pathname = usePathname();
   const { hasRole } = useAuth();
 
-  const bottomNavHrefs = ['/', '/residents', '/rota', '/issues', '/history'];
+  const bottomNavHrefs = ['/', '/residents', '/rota', '/issues', '/announcements'];
 
   const filteredNavItems = navItems
     .filter(item => bottomNavHrefs.includes(item.href) && hasRole(item.roles))
