@@ -33,7 +33,6 @@ export function Sidebar() {
         <div className="h-16 flex items-center px-6 border-b">
           <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
             <Shield className="w-6 h-6 text-primary" />
-            <span>DutyFlow</span>
           </Link>
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
@@ -66,7 +65,7 @@ export function Sidebar() {
                     ) : (
                         <Sun className="mr-3 h-4 w-4" />
                     )}
-                    <span>Toggle Theme</span>
+                    <span>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
                 </Button>
             </div>
             <div className='px-2 py-2 space-y-1 mt-2'>
