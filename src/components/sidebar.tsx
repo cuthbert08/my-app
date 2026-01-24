@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Users, Megaphone, Shield, Wrench, Settings, LogOut, FileText, ListOrdered, History as HistoryIcon, Moon, Sun } from 'lucide-react';
+import { Home, Users, Megaphone, Wrench, Settings, LogOut, FileText, ListOrdered, History as HistoryIcon, Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { Badge } from '@/components/ui/badge';

@@ -27,7 +27,7 @@ export default function ProtectedLayout({
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <div className="space-y-4">
             <Skeleton className="h-12 w-12 rounded-full" />
             <Skeleton className="h-4 w-[250px]" />
@@ -38,7 +38,7 @@ export default function ProtectedLayout({
   }
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex min-h-screen w-full">
         {/* Overlay for mobile */}
         {isSidebarOpen && (
             <div
@@ -50,7 +50,7 @@ export default function ProtectedLayout({
         {/* Sidebar */}
         <div
             className={cn(
-                'fixed inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0',
+                'fixed inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0',
                 {
                     'translate-x-0': isSidebarOpen,
                     '-translate-x-full': !isSidebarOpen,
@@ -62,7 +62,7 @@ export default function ProtectedLayout({
         
         <div className="flex flex-1 flex-col">
              {/* Mobile Header */}
-            <header className="flex h-16 items-center justify-between border-b bg-card px-4 lg:hidden">
+            <header className="sticky top-0 flex h-16 items-center justify-between border-b bg-card px-4 lg:hidden">
                  <Button
                     variant="ghost"
                     size="icon"
@@ -74,7 +74,7 @@ export default function ProtectedLayout({
                 </Button>
             </header>
 
-            <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            <main className="flex-1 p-4 sm:p-6 lg:p-8">
               {children}
             </main>
         </div>
