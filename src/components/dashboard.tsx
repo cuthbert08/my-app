@@ -9,11 +9,12 @@ import { type DashboardData } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format, nextWednesday, addDays } from 'date-fns';
-import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus, MoreVertical, Settings, FileText, LogOut } from 'lucide-react';
+import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus, MoreVertical, Settings, FileText, LogOut, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { useTheme } from 'next-themes';
 
 export function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -22,6 +23,7 @@ export function Dashboard() {
   const [customMessage, setCustomMessage] = useState('');
   const { toast } = useToast();
   const { hasRole, user, logout } = useAuth();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const loadDashboardData = useCallback(async () => {
     setLoading(true);
@@ -163,6 +165,18 @@ export function Dashboard() {
                         Logs
                         </Link>
                     )}
+                    <Button
+                        variant="ghost"
+                        onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
+                        className="w-full justify-start flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
+                    >
+                        {resolvedTheme === 'light' ? (
+                            <Moon className="h-4 w-4" />
+                        ) : (
+                            <Sun className="h-4 w-4" />
+                        )}
+                        <span>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+                    </Button>
                 </nav>
                 <div className="mt-auto border-t p-4">
                     <div className='px-2 py-2 space-y-1'>
