@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Users, Megaphone, Shield, Wrench, Settings, LogOut, FileText, ListOrdered, History as HistoryIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import { Badge } from '@/components/ui/badge';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: Home, roles: ['superuser', 'editor', 'viewer'], color: 'text-sky-500' },
@@ -51,13 +52,23 @@ export function Sidebar() {
           })}
         </nav>
         <div className="mt-auto p-4 border-t">
-            <div className='px-2 py-2'>
+            <div className='px-2 py-2 space-y-1'>
                 <p className="text-sm font-medium">{user?.email}</p>
-                <p className="text-xs text-muted-foreground">{user?.role}</p>
+                {user?.role && (
+                    <Badge 
+                        variant={
+                            user.role === 'superuser' ? 'destructive' :
+                            user.role === 'editor' ? 'default' : 'secondary'
+                        }
+                        className="capitalize"
+                    >
+                        {user.role}
+                    </Badge>
+                )}
             </div>
             <button
                 onClick={logout}
-                className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
+                className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-destructive transition-all hover:bg-destructive/10 hover:text-destructive"
             >
                 <LogOut className="h-4 w-4" />
                 Logout
