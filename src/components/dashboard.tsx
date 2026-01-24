@@ -9,8 +9,11 @@ import { type DashboardData } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format, nextWednesday, addDays } from 'date-fns';
-import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus } from 'lucide-react';
+import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus, MoreVertical, Settings, FileText, LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 export function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -18,7 +21,7 @@ export function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [customMessage, setCustomMessage] = useState('');
   const { toast } = useToast();
-  const { hasRole } = useAuth();
+  const { hasRole, user, logout } = useAuth();
 
   const loadDashboardData = useCallback(async () => {
     setLoading(true);
@@ -133,8 +136,53 @@ export function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-start justify-between">
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
+        <div className="lg:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <MoreVertical />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] p-0">
+              <SheetHeader className="p-6 pb-0">
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <div className="h-full flex flex-col">
+                <nav className="flex-1 mt-6 space-y-2 px-6">
+                  {hasRole(['superuser']) && (
+                    <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                      <Settings className="h-4 w-4 text-pink-500" />
+                      Settings
+                    </Link>
+                  )}
+                  {hasRole(['superuser', 'editor', 'viewer']) && (
+                    <Link href="/logs" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                      <FileText className="h-4 w-4 text-slate-500" />
+                      Logs
+                    </Link>
+                  )}
+                </nav>
+                <div className="mt-auto border-t">
+                  <div className="px-6 py-4 space-y-1">
+                    <p className="text-sm font-medium">{user?.email}</p>
+                    {user?.role && (
+                      <Badge variant={user.role === 'superuser' ? 'destructive' : user.role === 'editor' ? 'default' : 'secondary'} className="capitalize">
+                        {user.role}
+                      </Badge>
+                    )}
+                  </div>
+                  <button onClick={logout} className="w-full flex items-center gap-3 px-6 py-3 text-destructive transition-all hover:bg-destructive/10">
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
