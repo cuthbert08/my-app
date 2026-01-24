@@ -95,7 +95,7 @@ export function Rota() {
         <h1 className="text-3xl font-bold">Duty Rotation</h1>
         {canPerformAction && (
           <Button onClick={handleSaveChanges}>
-            <Save className="mr-2" />
+            <Save className="mr-2 text-green-500" />
             Save Changes
           </Button>
         )}
@@ -127,7 +127,7 @@ export function Rota() {
                   className={`flex items-center justify-between p-3 rounded-md border bg-card text-card-foreground ${canPerformAction ? 'cursor-grab' : ''} ${draggedItem?.id === resident.id ? 'opacity-50' : ''}`}
                 >
                   <div className="flex items-center">
-                    {canPerformAction && <GripVertical className="mr-4 text-muted-foreground" />}
+                    {canPerformAction && <GripVertical className="mr-4 text-indigo-500" />}
                     <div>
                       <p className="font-semibold">{resident.name}</p>
                       <p className="text-sm text-muted-foreground">Flat {resident.flat_number}</p>
@@ -138,7 +138,7 @@ export function Rota() {
                       {format(getDutyDate(index), 'EEE, dd MMM yyyy')}
                     </p>
                     <p className="text-sm text-muted-foreground flex items-center justify-end gap-1">
-                      <Clock className='size-3' />
+                      <Clock className='size-3 text-purple-500' />
                       04:00 AM SAST
                     </p>
                   </div>
