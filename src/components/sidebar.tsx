@@ -30,11 +30,6 @@ export function Sidebar() {
   return (
     <aside className="w-full h-full flex-shrink-0 bg-card border-r">
       <div className="flex flex-col h-full">
-        <div className="h-16 flex items-center px-6 border-b">
-          <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
-            <Shield className="w-6 h-6 text-primary" />
-          </Link>
-        </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
           {filteredNavItems.map((item) => {
             const isActive = pathname === item.href;
