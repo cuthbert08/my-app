@@ -146,40 +146,47 @@ export function Dashboard() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] p-0">
-              <SheetHeader className="p-6 pb-0">
-                <SheetTitle>Menu</SheetTitle>
-              </SheetHeader>
-              <div className="h-full flex flex-col">
-                <nav className="flex-1 mt-6 space-y-2 px-6">
-                  {hasRole(['superuser']) && (
-                    <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                      <Settings className="h-4 w-4 text-pink-500" />
-                      Settings
-                    </Link>
-                  )}
-                  {hasRole(['superuser', 'editor', 'viewer']) && (
-                    <Link href="/logs" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                      <FileText className="h-4 w-4 text-slate-500" />
-                      Logs
-                    </Link>
-                  )}
-                </nav>
-                <div className="mt-auto border-t">
-                  <div className="px-6 py-4 space-y-1">
-                    <p className="text-sm font-medium">{user?.email}</p>
-                    {user?.role && (
-                      <Badge variant={user.role === 'superuser' ? 'destructive' : user.role === 'editor' ? 'default' : 'secondary'} className="capitalize">
-                        {user.role}
-                      </Badge>
+            <SheetContent side="right" className="w-[280px] p-0 flex flex-col">
+                <SheetHeader className="p-6 pb-4 border-b">
+                    <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="flex-1 mt-4 space-y-1 px-4">
+                    {hasRole(['superuser']) && (
+                        <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                        <Settings className="h-4 w-4 text-pink-500" />
+                        Settings
+                        </Link>
                     )}
-                  </div>
-                  <button onClick={logout} className="w-full flex items-center gap-3 px-6 py-3 text-destructive transition-all hover:bg-destructive/10">
-                    <LogOut className="h-4 w-4" />
-                    Logout
-                  </button>
+                    {hasRole(['superuser', 'editor', 'viewer']) && (
+                        <Link href="/logs" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                        <FileText className="h-4 w-4 text-slate-500" />
+                        Logs
+                        </Link>
+                    )}
+                </nav>
+                <div className="mt-auto border-t p-4">
+                    <div className='px-2 py-2 space-y-1'>
+                        <p className="text-sm font-medium">{user?.email}</p>
+                        {user?.role && (
+                        <Badge 
+                            variant={
+                                user.role === 'superuser' ? 'destructive' :
+                                user.role === 'editor' ? 'default' : 'secondary'
+                            }
+                            className="capitalize"
+                        >
+                            {user.role}
+                        </Badge>
+                        )}
+                    </div>
+                    <button
+                        onClick={logout}
+                        className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-destructive transition-all hover:bg-destructive/10 hover:text-destructive"
+                    >
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                    </button>
                 </div>
-              </div>
             </SheetContent>
           </Sheet>
         </div>
