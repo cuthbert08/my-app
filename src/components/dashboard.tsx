@@ -9,7 +9,7 @@ import { type DashboardData } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format, nextWednesday, addDays } from 'date-fns';
-import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus, MoreVertical, Settings, FileText, LogOut, Moon, Sun } from 'lucide-react';
+import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus, MoreVertical, Settings, FileText, LogOut, Moon, Sun, Megaphone } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -153,6 +153,12 @@ export function Dashboard() {
                     <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="flex-1 mt-4 space-y-1 px-4">
+                    {hasRole(['superuser', 'editor']) && (
+                        <Link href="/announcements" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                        <Megaphone className="h-4 w-4 text-indigo-500" />
+                        Announcements
+                        </Link>
+                    )}
                     {hasRole(['superuser']) && (
                         <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Settings className="h-4 w-4 text-pink-500" />
