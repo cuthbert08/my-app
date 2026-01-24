@@ -9,7 +9,7 @@ import { type DashboardData } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format, nextWednesday, addDays } from 'date-fns';
-import { AlertTriangle, ChevronsRight, SkipForward } from 'lucide-react';
+import { AlertTriangle, ChevronsRight, SkipForward, User, Users, Activity, Send, MessageSquarePlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function Dashboard() {
@@ -138,16 +138,18 @@ export function Dashboard() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
-          <CardHeader>
-            <CardTitle>Current Bin Duty</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-base font-medium">Current Bin Duty</CardTitle>
+            <User className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
             {renderCardContent(data?.current_duty?.name, currentDutyDate)}
           </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle>Next in Rotation</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-base font-medium">Next in Rotation</CardTitle>
+            <Users className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
             {renderCardContent(data?.next_in_rotation?.name, nextDutyDate)}
@@ -156,6 +158,7 @@ export function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-base font-medium">System Status</CardTitle>
+            <Activity className="h-4 w-4 text-orange-500" />
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -175,10 +178,10 @@ export function Dashboard() {
            {canPerformAction && (
              <CardFooter className='space-x-2'>
                   <Button variant="outline" onClick={handleAdvanceTurn} disabled={loading || !!error}>
-                      <ChevronsRight /> Advance Turn
+                      <ChevronsRight className="text-cyan-500"/> Advance Turn
                   </Button>
                   <Button variant="outline" onClick={handleSkipTurn} disabled={loading || !!error}>
-                      <SkipForward /> Skip Turn
+                      <SkipForward className="text-pink-500"/> Skip Turn
                   </Button>
               </CardFooter>
             )}
@@ -195,7 +198,7 @@ export function Dashboard() {
               Send the standard weekly reminder to the person currently on duty. This will also advance the turn to the next person.
             </p>
             {canPerformAction && (
-              <Button onClick={() => handleSendReminder()} disabled={loading || !!error}>Send Reminder & Advance</Button>
+              <Button onClick={() => handleSendReminder()} disabled={loading || !!error}><Send />Send Reminder & Advance</Button>
             )}
           </CardContent>
         </Card>
@@ -211,7 +214,7 @@ export function Dashboard() {
               disabled={loading || !!error || !canPerformAction}
             />
             {canPerformAction && (
-              <Button onClick={() => handleSendReminder(customMessage)} disabled={!customMessage || loading || !!error}>Send Custom Reminder & Advance</Button>
+              <Button onClick={() => handleSendReminder(customMessage)} disabled={!customMessage || loading || !!error}><MessageSquarePlus />Send Custom Reminder & Advance</Button>
             )}
           </CardContent>
         </Card>
