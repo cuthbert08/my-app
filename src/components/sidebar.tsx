@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Users, Megaphone, Shield, Wrench, Settings, LogOut, FileText, ListOrdered, History as HistoryIcon } from 'lucide-react';
+import { Home, Users, Megaphone, Shield, Wrench, Settings, LogOut, FileText, ListOrdered, History as HistoryIcon, Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { Badge } from '@/components/ui/badge';
+import { useTheme } from 'next-themes';
+import { Button } from './ui/button';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: Home, roles: ['superuser', 'editor', 'viewer'], color: 'text-sky-500' },
@@ -21,6 +23,7 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const { user, logout, hasRole } = useAuth();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   const filteredNavItems = navItems.filter(item => hasRole(item.roles));
 
@@ -52,7 +55,21 @@ export function Sidebar() {
           })}
         </nav>
         <div className="mt-auto p-4 border-t">
-            <div className='px-2 py-2 space-y-1'>
+            <div className='px-2 pt-2 pb-4 border-b'>
+                <Button
+                    variant="ghost"
+                    onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
+                    className="w-full justify-start text-muted-foreground hover:text-primary"
+                >
+                    {resolvedTheme === 'light' ? (
+                        <Moon className="mr-3 h-4 w-4" />
+                    ) : (
+                        <Sun className="mr-3 h-4 w-4" />
+                    )}
+                    <span>Toggle Theme</span>
+                </Button>
+            </div>
+            <div className='px-2 py-2 space-y-1 mt-2'>
                 <p className="text-sm font-medium">{user?.email}</p>
                 {user?.role && (
                     <Badge 

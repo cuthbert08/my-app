@@ -3,6 +3,7 @@ import {Toaster} from '@/components/ui/toaster';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'DutyFlow',
@@ -25,10 +26,17 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-sans antialiased h-full bg-background text-foreground')} suppressHydrationWarning>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
