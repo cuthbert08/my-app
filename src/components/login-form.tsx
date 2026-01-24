@@ -47,7 +47,6 @@ export function LoginForm() {
             <Shield className="w-8 h-8 text-primary" />
             <h1 className="text-2xl font-bold">DutyFlow</h1>
         </div>
-        <CardTitle>Admin Login</CardTitle>
         <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
       </CardHeader>
       <CardContent>
